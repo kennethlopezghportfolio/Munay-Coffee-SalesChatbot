@@ -6,12 +6,16 @@ app.use(express.json());
 
 console.log("🔥 SERVER LOADED");
 
+app.get("/", (req, res) => {
+  res.send("Munay Coffee Bot is running ☕️");
+});
+
 // 🔑 CONFIG
 const SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyO0mDovhOWm639QScad5zvU7P9ZTovolY8-yIpMEYjCwFX9cidAjOS5r0GNycugmifgQ/exec";
 
-const TOKEN = "EAALdHsoRITMBRTKedtZBZANUbB9xADiFIrGOtciZBlDm4cz9ls6ssSkZAJJo8fbCRDmxcugiQZCt8iwqs3rbkxqIU09M6hobPaxZA82PkyD7fF5DZCDjSdNxKEw2I8fASZAwntsAZBSSgNIIS37kuprgB5t8QyvDLYxZCSa39JkehVr05qTZBdHU8dCneZByU3C35SRX3uWPmszcIUo3ZAooV5OhRTgkN8Q1Hfi0j1Dw4U7VHHvC1yKT1xYGXQFIwTRdZA7BrNQJt0EMXy1IKSXZBUNI6JO";
-const PHONE_NUMBER_ID = "1134271119767490";
-const VERIFY_TOKEN = "coffee123";
+const TOKEN = process.env.TOKEN;
+const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 // 🧠 MEMORY (simple session state)
 const userState = {};
@@ -150,6 +154,8 @@ Escribe tu preferencia.`;
 });
 
 // 🚀 START SERVER
-app.listen(4000, () => {
-  console.log("🚀 Server running on port 4000");
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
