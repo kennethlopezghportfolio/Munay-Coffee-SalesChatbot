@@ -148,7 +148,12 @@ Escribe tu preferencia.`;
     res.sendStatus(200);
 
   } catch (err) {
-    console.error("🔥 FULL ERROR:", err.stack || err.message || err);
+console.error(
+  "🔥 META ERROR:",
+  JSON.stringify(err.response?.data, null, 2)
+);
+
+console.error(err.message);
     res.sendStatus(200); // prevents WhatsApp retry spam loops
   }
 });
