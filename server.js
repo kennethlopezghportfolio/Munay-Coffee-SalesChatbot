@@ -1,6 +1,8 @@
 const express = require("express");
 const axios = require("axios");
 
+const { testConnection } = require("./db");
+
 const app = express();
 app.use(express.json());
 
@@ -148,17 +150,21 @@ Escribe tu preferencia.`;
     res.sendStatus(200);
 
   } catch (err) {
-console.error(
-  "🔥 META ERROR:",
-  JSON.stringify(err.response?.data, null, 2)
-);
+  console.error("🔥 META STATUS:", err.response?.status);
 
-console.error(err.message);
-    res.sendStatus(200); // prevents WhatsApp retry spam loops
-  }
+  console.error(
+    "🔥 META RESPONSE:",
+    JSON.stringify(err.response?.data, null, 2)
+  );
+
+  console.error("🔥 MESSAGE:", err.message);
+
+  res.sendStatus(200); // prevents WhatsApp retry spam loops
 });
 
 // 🚀 START SERVER
+testConnection();
+
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
